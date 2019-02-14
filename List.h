@@ -11,7 +11,7 @@ public:
 
 class List{
 private:
-	unsigned int size
+	unsigned int length;
 public:
 	Node *head, tail;
 	List();
