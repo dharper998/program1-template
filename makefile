@@ -22,7 +22,7 @@ clean:
 memcheck: all
 	valgrind --leak-check=full ./lab3
 
-push: clean
+push:
 	git add -A
 	git commit -am "commit from makefile"
 	git push
