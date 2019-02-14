@@ -4,14 +4,14 @@
 class Vector {
 private:
 	Planet ** array;
-	unsigned int size;
+	unsigned int vectSize;
 public:
 	~Vector();
 	void insert(int, Planet);
 	Planet * read(int);
 	bool remove(int index);
-	unsigned int size(){return this->size()};
-}
+	unsigned int size(){return this->vectSize;};
+};
 
 
 
