@@ -1,16 +1,18 @@
 #ifndef VECTORH_DH
 #define VECTORH_DH
+#include "Planet.h"
 
 class Vector {
 private:
 	Planet ** array;
-	unsigned int vectSize;
+	int vectSize;
 public:
+	Vector();
 	~Vector();
-	void insert(int, Planet);
-	Planet * read(int);
+	void insert(int index, Planet * p);
+	Planet * read(int index);
 	bool remove(int index);
-	unsigned int size(){return this->vectSize;};
+	int size(){return this->vectSize;};
 };
 
 

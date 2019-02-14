@@ -8,6 +8,12 @@ Node::Node(Planet *p){
 	this -> prev = NULL;
 }
 
+Node::Node() {
+	this->data = NULL;
+	this->next = NULL;
+	this->prev = NULL;
+}
+
 List::List(){
 	this -> head = NULL;
 	this -> tail = NULL;
@@ -23,7 +29,6 @@ List::~List(){
 
 void List::insert(int index, Planet *p){
 	Node *to_insert = new Node(p);
-	if(this == NULL){return;}
 	if(this -> length == 0){//if there's nothing
 		this -> head = to_insert;
 		this -> tail = to_insert;
@@ -43,12 +48,12 @@ void List::insert(int index, Planet *p){
 		return;
 		
 	}
-	node *temp = this -> head;
+	Node *temp = this -> head;
 	for(int i = 0; i < index; i++){//if it wants to add in the middle
 		temp = temp -> next;
 	}
-	node *add_next = temp -> next;
-	node *add_prev = temp -> prev;
+	Node *add_next = temp -> next;
+	Node *add_prev = temp -> prev;
 	temp -> next -> prev = to_insert;
 	temp -> prev -> next = to_insert;
 	to_insert -> next = add_next;
@@ -58,10 +63,10 @@ void List::insert(int index, Planet *p){
 }
 
 Planet *List::read(int index){
-	if(this == NULL || index >= this -> length){
+	if(index >= this -> length){
 		return NULL;
 	}
-	node *temp = this -> head;
+	Node *temp = this -> head;
 	for(int i = 0; i < index; i++){
 		temp = temp -> next;
 	}
@@ -71,14 +76,14 @@ Planet *List::read(int index){
 bool List::remove(int index){//NOT DONE
 	if(index >= this -> length){return false;}
 	if(index == 0){
-		node *to_delete = this -> head;
+		Node *to_delete = this -> head;
 		this -> head = this -> head -> next;
 		delete to_delete;
 		this -> length--;
 		return true;
 	}
 	if(index == this -> length - 1){
-		node *to_delete = this -> tail;
+		Node *to_delete = this -> tail;
 		this -> tail = this -> tail -> prev;
 		delete to_delete;
 		this -> length--;
