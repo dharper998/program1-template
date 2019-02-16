@@ -4,34 +4,32 @@
 
 class Starlist{
 private:
-        int current_planets;
-        int next_id;
+  int current_planets;
 public:
-        Planet ** planets;
-        Starlist();
+  Planet ** planets;
+  Starlist();
 	~Starlist();
-        int addPlanet();
-	bool removePlanet(int);
-	Planet *getPlanet(int);
+  long addPlanet();
+	bool removePlanet(long);
+	Planet *getPlanet(long);
 	void orbit();
-        void printStarInfo();
-        int getCurrentNumPlanets(){return this -> current_planets;}
+  void printStarInfo();
+  unsigned int getCurrentNumPlanets(){return this -> current_planets;}
 };
 
 class Starvector{
 private:
-        int current_planets;
-        int next_id;
+  int current_planets;
 public:
-        Planet ** planets;
-        Starvector();
+  Planet ** planets;
+  Starvector();
 	~Starvector();
-        int addPlanet();
-	bool removePlanet(int);
-	Planet *getPlanet(int);
+  long addPlanet();
+	bool removePlanet(long);
+	Planet *getPlanet(long);
 	void orbit();
-        void printStarInfo();
-        int getCurrentNumPlanets(){return this -> current_planets;}
+  void printStarInfo();
+  unsigned int getCurrentNumPlanets(){return this -> current_planets;}
 };
 
 #endif
