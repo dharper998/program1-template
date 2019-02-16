@@ -21,7 +21,10 @@ Starlist::Starlist(){
 }
 
 Starlist::~Starlist(){
-	for(Starnode *temp = this->head; temp != NULL; temp = temp->next){
+	Starnode * next;
+	for(Starnode *temp = this->head; temp != NULL; temp = next){
+		next = temp->next;
+		delete temp->planet;
 		delete temp;
 	}
 }
@@ -41,25 +44,40 @@ long Starlist::addPlanet(){
 	return new_planet->getID();
 }
 
-bool Starlist::removePlanet(int id){
+bool Starlist::removePlanet(long id){
 	for(Starnode *temp = this->head; temp != NULL; temp = temp->next){
 		if((temp->planet)->getID() == id) {
-			if(temp->prev == NULL) {
-
+			if(temp->prev){
+				(temp->prev)->next = temp->next;
+			} else {
+				this->head = temp->next;
 			}
+			if(temp->next){
+				(temp->next)->prev = temp->prev;
+			} else {
+				this->tail = temp->prev;
+			}
+			delete temp->planet;
+			delete temp;
+			this->current_planets--;
+			return true;
 		}
 	}
 	return false;
 }
 
-Planet * Starlist::getPlanet(int index){
-
+Planet * Starlist::getPlanet(long id){
+	for(Starnode *temp = this->head; temp != NULL; temp = temp->next){
+		if((temp->planet)->getID() == id) {
+			return temp->planet;
+		}
+	}
+	return NULL;
 }
 
 void Starlist::orbit(){
 	for(Starnode *temp = this->head; temp != NULL; temp = temp->next){
 		(temp->planet)->orbit();
-		temp = temp->next;
 	}
 	return;
 }
@@ -68,8 +86,7 @@ void Starlist::printStarInfo(){
 	std::cout << "The star currently has " << this -> current_planets << " planets." << std::endl;
 	std::cout << "Planets:" << std::endl;
 	for(Starnode *temp = this->head; temp != NULL; temp = temp->next){
-		std::cout << "        " << (temp->planet)->getType() << " Planet " << (temp->planet)->getID() << " is " << (temp->planet)->getDistance() << " million miles away at position " << (temp->planet)->getPos() << " around the star." << std::endl;
-		temp = temp->next;
+		std::cout << "        " << " Planet " << (temp->planet)->getType() << (temp->planet)->getID() << " is " << (temp->planet)->getDistance() << " million miles away at position " << (temp->planet)->getPos() << " around the star." << std::endl;
 	}
 	return;
 }
@@ -83,6 +100,9 @@ Starvector::Starvector(){
 
 Starvector::~Starvector(){
 	if(this -> planets == NULL){return;}
+	for(int i = 0; i < this->current_planets; i++) {
+		delete this->planets[i];
+	}
 	delete[] this -> planets;
 }
 
@@ -108,9 +128,9 @@ bool Starvector::removePlanet(long id){//changed implementation from lab, may no
 	}
 	if(index == -1){return false;}
 	Planet ** arr = new Planet*[this -> current_planets - 1];
-	for(int j = 0; j < this -> current_planets-1; j++){
+	for(int j = 0; j < this -> current_planets; j++){
 		if(j < index){arr[j] = this -> planets[j];}
-		else if (j > index){arr[j] = this -> planets[j+1];}
+		else if (j > index){arr[j-1] = this -> planets[j];}
 	}
 	delete planets[index];
 	delete[] this -> planets;
@@ -138,6 +158,6 @@ void Starvector::printStarInfo(){
 	std::cout << "The star currently has " << this -> current_planets << " planets." << std::endl;
 	std::cout << "Planets:" << std::endl;
 	for(int i = 0; i < this -> current_planets; i++){
-		std::cout << "        " << this -> planets[i] -> getType() << " Planet " << this -> planets[i] -> getID() << " is " << this -> planets[i] -> getDistance() << " million miles away at position " << this -> planets[i] -> getPos() << " around the star." << std::endl;
+		std::cout << "        " << " Planet " << this -> planets[i] -> getType() << this -> planets[i] -> getID() << " is " << this -> planets[i] -> getDistance() << " million miles away at position " << this -> planets[i] -> getPos() << " around the star." << std::endl;
 	}
 }

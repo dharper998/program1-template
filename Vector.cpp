@@ -12,7 +12,7 @@ Vector::~Vector() {
 
 void Vector::insert(int index, Planet * p) {
 	//if array is null, create new array of size index+1 and insert the element
-	if(this->array == NULL) { 
+	if(this->array == NULL) {
 		this->array = new Planet *[index+1];
 		this->vectSize = index+1;
 		this->array[index] = p;
@@ -30,6 +30,7 @@ void Vector::insert(int index, Planet * p) {
 		for(int i=index+1;i<this->vectSize;i++) {
 			temp[i] = this->array[i-1];
 		}
+		delete[]this->array;
 		this->array = temp;
 
 	//if the array is not big enough, extend the array to be size index+1
@@ -38,7 +39,11 @@ void Vector::insert(int index, Planet * p) {
 		for(int i=0;i<this->vectSize;i++) {
 			temp[i] = this->array[i];
 		}
+		for(int i = this->vectSize;i<index+1;i++) {
+			temp[i] = NULL;
+		}
 		temp[index] = p;
+		delete[]this->array;
 		this->array = temp;
 		this->vectSize = index+1;
 	}
@@ -46,17 +51,13 @@ void Vector::insert(int index, Planet * p) {
 
 Planet * Vector::read(int index) {
 	//if index is outside of the array, return null
-	if(this->array == NULL || index > vectSize) {return NULL;}
-
-	//if index is within the array, return the element at index
-	if(index <= this->vectSize) {
-		return this->array[index];
-	}
+	if(this->array == NULL || index >= this->vectSize) {return NULL;}
+	return this->array[index];
 }
 
 bool Vector::remove(int index) {
 	//if the vector size is less than index, return null
-	if(this->array == NULL || this->vectSize <= index) {return false;}
+	if(this->array == NULL || index >= this->vectSize) {return false;}
 
 	//create a new array, copy elements up to index
 	Planet ** temp = new Planet *[this->vectSize-1];
@@ -70,7 +71,10 @@ bool Vector::remove(int index) {
 	}
 
 	//delete the planet at index, set array to new array, increment vectSize
-	delete this->array[index];
+	if(this->array[index] != NULL){
+		delete this->array[index];
+	}
+	delete[]this->array;
 	this->array = temp;
 	this->vectSize--;
 	return true;

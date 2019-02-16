@@ -21,10 +21,12 @@ List::List(){
 }
 
 List::~List(){
-	for(Node *temp = this -> head; temp != NULL; temp = temp -> next){
+	Node * next;
+	for(Node *temp = this -> head; temp != NULL; temp = next){
+		next = temp->next;
+		delete temp->data;
 		delete temp;
 	}
-	//delete this;
 }
 
 void List::insert(int index, Planet *p){
@@ -79,6 +81,7 @@ bool List::remove(int index){//NOT WORKING
 	if(index == 0){
 		Node *to_delete = this -> head;
 		this -> head = this -> head -> next;
+		delete to_delete->data;
 		delete to_delete;
 		this -> length--;
 		return true;
@@ -86,6 +89,7 @@ bool List::remove(int index){//NOT WORKING
 	if(index == this -> length - 1){
 		Node *to_delete = this -> tail;
 		this -> tail = this -> tail -> prev;
+		delete to_delete->data;
 		delete to_delete;
 		this -> length--;
 		return true;
@@ -96,6 +100,8 @@ bool List::remove(int index){//NOT WORKING
 	}
 	temp -> next -> prev = temp -> prev;
 	temp -> prev -> next = temp -> next;
+	delete temp->data;
 	delete temp;
 	this -> length--;
+	return true;
 }

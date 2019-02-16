@@ -4,7 +4,7 @@
 
 
 Planet::Planet(int distance){
-	this->id = (long int)this;
+	this->id = (long)this;
 	this->distance = distance;
 	this->pos = rand() % 360;
 	int random = rand() % 3;
@@ -14,10 +14,10 @@ Planet::Planet(int distance){
 }
 
 int Planet::orbit(){
-	if(this -> pos >= 0 && this -> pos < 359)
+	if(this -> pos >= 0 && this -> pos < 359) {
 		this -> pos++;
-	else
+	} else {
 		this -> pos = 0;
+	}
 	return this -> pos;
 }
-

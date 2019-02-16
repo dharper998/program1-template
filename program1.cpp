@@ -179,6 +179,7 @@ int main(){
         id_list[i+1] = sl->addPlanet();
     }
     //delete 10 random planets in the sun
+
     for(int i = 0; i < 50; i++){
         int rand_id = (rand() % (200));
         if(id_list[rand_id] == -1){

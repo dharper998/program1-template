@@ -19,8 +19,8 @@ public:
   Starlist();
 	~Starlist();
   long addPlanet();
-	bool removePlanet(int);
-	Planet *getPlanet(int);
+	bool removePlanet(long);
+	Planet *getPlanet(long);
 	void orbit();
   void printStarInfo();
   unsigned int getCurrentNumPlanets(){return this -> current_planets;}

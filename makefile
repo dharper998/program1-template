@@ -24,12 +24,12 @@ run: all
 	./program1
 
 clean:
-	rm star.o planet.o program1.o list.o vector.o program1
+	rm *.o program1
 
 memcheck: all
 	valgrind --leak-check=full ./program1
 
-push:
+push: all clean
 	git add -A
 	git commit -am "commit from makefile"
 	git push
