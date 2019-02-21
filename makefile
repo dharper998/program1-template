@@ -31,5 +31,5 @@ memcheck: all
 
 push: all clean
 	git add -A
-	git commit -am "commit from makefile"
+	git commit -am "final commit"
 	git push
